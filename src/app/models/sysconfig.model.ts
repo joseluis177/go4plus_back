@@ -1,6 +1,11 @@
 import {Schema, model} from 'mongoose';
 
-const sysConfigSchema = new Schema({    
+const sysConfigSchema = new Schema({
+    name: {
+        type: String,
+        require: true,
+        unique: true
+    },    
     type: {
         type: String,
         require: true,
@@ -17,7 +22,7 @@ const sysConfigSchema = new Schema({
         primary: {
             type: String,
             require: true,
-        },  
+        }
     },
     background: {
         paper: {
@@ -30,7 +35,8 @@ const sysConfigSchema = new Schema({
         }
     }
 }, {
-    versionKey: false
+    versionKey: false,
+    timestamps: true
 });
 
 export default model('sysConfig', sysConfigSchema)

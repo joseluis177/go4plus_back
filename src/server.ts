@@ -1,5 +1,5 @@
-import './database';
-import app from './app';
+import './app/database';
+import app from './app/app';
 
 // - Server init listen
 app.listen(app.get('port'), () => {
