@@ -8,24 +8,58 @@ export const createSysConfig: RequestHandler = async (req, res) => {
         })
         .catch(err => {
             res.status(400).json(err); 
-        });
-
+        }
+    );
 };
 
 export const getSysConfigByName: RequestHandler = async (req, res) => {
-    await sysConfigRepository.getSysConfigByName(req.params.name).then(data=>{
-        if(data) {
-            res.status(200).json(data);        
-        } else {
-            res.status(204).json("No data");
+    await sysConfigRepository.getSysConfigByName(req.params.name)
+        .then(data=>{
+            if(data.state){
+                res.status(data.status.valueOf()).json(data.response);
+            } else {
+                res.status(data.status.valueOf()).json(data.message);
+            }        
+        })
+        .catch(err => {
+            res.status(400).json(err); 
         }
-    })
+    );
 };
 
 export const listSysConfig: RequestHandler = async (req, res) => {
-    res.status(200).json(await sysConfigRepository.listSysConfig());
+    await sysConfigRepository.listSysConfig()
+        .then(data=> {
+            if(data.state){
+                res.status(data.status.valueOf()).json(data.response);
+            } else {
+                res.status(data.status.valueOf()).json(data.message);
+            }
+        })
+        .catch(err => {
+            res.status(400).json(err); 
+        }
+    );
 };
 
-export const updateSysConfig: RequestHandler = (req, res) => {
-    res.json('Recuperando configuración del sistema')
+export const deleteSysConfigByName: RequestHandler = async (req, res) => {
+    await sysConfigRepository.deleteSysConfig(req.params.name)
+        .then(data=>{
+            res.status(data.status.valueOf()).json(data.message);        
+        })
+        .catch(err => {
+            res.status(400).json(err); 
+        }
+    );
+};
+
+export const updateSysConfig: RequestHandler = async (req, res) => {
+    await sysConfigRepository.updateSysConfig(req.params.name, req.body)
+        .then(data=>{
+            res.status(data.status.valueOf()).json(data.message);        
+        })
+        .catch(err => {
+            res.status(400).json(err); 
+        }
+    );
 };
