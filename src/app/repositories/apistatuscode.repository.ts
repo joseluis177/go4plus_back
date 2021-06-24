@@ -1,10 +1,10 @@
-import apiStatusCode from '../models/apistatuscode.model';
+import objectModel from '../models/apistatuscode.model';
 import {IApiStatusCode} from '../view/apistatuscode.view';
-
+const objPrefix = 'api';
 export async function createStatusCode(statusCode: IApiStatusCode): Promise<IApiStatusCode> {
     var status;
     try {
-        const oapiStatusCode = new apiStatusCode(statusCode);
+        const oapiStatusCode = new objectModel(statusCode);
         await oapiStatusCode.save();
         status = 'api0000';    
     } catch (error) {
@@ -14,7 +14,15 @@ export async function createStatusCode(statusCode: IApiStatusCode): Promise<IApi
 }
 
 export async function getStatusCode(code: String, response: any): Promise<IApiStatusCode> {
-    var oapiStatusCode = await apiStatusCode.findOne({code: code});
+    var oapiStatusCode = await objectModel.findOne({code: code});
     oapiStatusCode.response = response;
     return oapiStatusCode;
+}
+
+export async function list(): Promise<IApiStatusCode> {
+    var status;
+    const oListed = await objectModel.find();
+    if(oListed) { status= objPrefix + '0002'}
+    else {status= objPrefix + '0003'}
+    return getStatusCode(status, oListed);
 }

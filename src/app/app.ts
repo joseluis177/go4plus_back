@@ -8,6 +8,8 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import config from '../utils/config'
 import sysConfigRoutes from './routes/sysconfig.route';
 import apiStatusRoutes from './routes/apistatuscode.route';
+import parmTableRoutes from './routes/parmtable.routes';
+import parmEntityRoutes from './routes/parmentity.route'
 import swaggerOptions from './swagger';
 
 // - App create
@@ -28,5 +30,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 // - Routes
 app.use(apiStatusRoutes);
 app.use(sysConfigRoutes);
+app.use(parmTableRoutes);
+app.use(parmEntityRoutes);
 
 export default app;

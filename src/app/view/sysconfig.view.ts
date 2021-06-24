@@ -3,11 +3,7 @@ export interface ISysConfig {
     type: String,
     primary: String,
     secondary: String,
-    text: {
-        primary: String
-    },
-    background: {
-        paper: String,
-        default: String
-    }
+    text_primary: String
+    background_paper: String,
+    background_default: String
 }

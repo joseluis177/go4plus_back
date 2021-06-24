@@ -1,12 +1,13 @@
 import {Router} from 'express';
-import * as sysConfigController from '../controllers/syscofig.controller';
+import * as objectController from '../controllers/syscofig.controller';
 
 const router = Router();
+const pathbase = '/api/sysconfig'
 
-router.get('/sysconfig/:name', sysConfigController.getSysConfigByName);
-router.get('/sysconfig', sysConfigController.listSysConfig);
-router.post('/sysconfig', sysConfigController.createSysConfig);
-router.delete('/sysconfig/:name', sysConfigController.deleteSysConfigByName);
-router.put('/sysconfig/:name', sysConfigController.updateSysConfig);
+router.get(pathbase + '/:name', objectController.get);
+router.get(pathbase, objectController.list);
+router.post(pathbase, objectController.create);
+router.delete(pathbase + '/:name', objectController.remove);
+router.put(pathbase + '/:name', objectController.update);
 
 export default router;

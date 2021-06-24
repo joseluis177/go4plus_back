@@ -1,8 +1,8 @@
 import {RequestHandler} from 'express';
-import * as objectRepository from '../repositories/apistatuscode.repository';
+import * as objectRepository from '../repositories/parmtable.repository';
 
-export const createStatusCode: RequestHandler = async (req, res) => {
-    await objectRepository.createStatusCode(req.body)
+export const create: RequestHandler = async (req, res) => {
+    await objectRepository.create(req.body)
         .then(data => {
             res.status(data.status.valueOf()).json(data.message);
         })
@@ -19,6 +19,21 @@ export const list: RequestHandler = async (req, res) => {
             } else {
                 res.status(data.status.valueOf()).json(data.message);
             }
+        })
+        .catch(err => {
+            res.status(400).json(err); 
+        }
+    );
+};
+
+export const get: RequestHandler = async (req, res) => {
+    await objectRepository.get(req.params.name)
+        .then(data=>{
+            if(data.state){
+                res.status(data.status.valueOf()).json(data.response);
+            } else {
+                res.status(data.status.valueOf()).json(data.message);
+            }        
         })
         .catch(err => {
             res.status(400).json(err); 

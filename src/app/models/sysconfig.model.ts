@@ -18,22 +18,18 @@ const sysConfigSchema = new Schema({
         type: String,
         require: true,
     },
-    text: {
-        primary: {
-            type: String,
-            require: true,
-        }
+    text_primary: {
+        type: String,
+        require: true,
     },
-    background: {
-        paper: {
-            type: String,
-            require: true,
-        },
-        default: {
-            type: String,
-            require: true,
-        }
-    }
+    background_paper: {
+        type: String,
+        require: true,
+    },
+    background_default: {
+        type: String,
+        require: true,
+    },
 }, {
     versionKey: false,
     timestamps: true

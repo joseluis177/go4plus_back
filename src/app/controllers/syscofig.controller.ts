@@ -1,8 +1,8 @@
 import {RequestHandler} from 'express';
-import * as sysConfigRepository from '../repositories/sysconfig.repository';
+import * as objectRepository from '../repositories/sysconfig.repository';
 
-export const createSysConfig: RequestHandler = async (req, res) => {
-    await sysConfigRepository.createSysConfig(req.body)
+export const create: RequestHandler = async (req, res) => {
+    await objectRepository.create(req.body)
         .then(data => {
             res.status(data.status.valueOf()).json(data.message);
         })
@@ -12,8 +12,8 @@ export const createSysConfig: RequestHandler = async (req, res) => {
     );
 };
 
-export const getSysConfigByName: RequestHandler = async (req, res) => {
-    await sysConfigRepository.getSysConfigByName(req.params.name)
+export const get: RequestHandler = async (req, res) => {
+    await objectRepository.get(req.params.name)
         .then(data=>{
             if(data.state){
                 res.status(data.status.valueOf()).json(data.response);
@@ -27,8 +27,8 @@ export const getSysConfigByName: RequestHandler = async (req, res) => {
     );
 };
 
-export const listSysConfig: RequestHandler = async (req, res) => {
-    await sysConfigRepository.listSysConfig()
+export const list: RequestHandler = async (req, res) => {
+    await objectRepository.list()
         .then(data=> {
             if(data.state){
                 res.status(data.status.valueOf()).json(data.response);
@@ -42,8 +42,8 @@ export const listSysConfig: RequestHandler = async (req, res) => {
     );
 };
 
-export const deleteSysConfigByName: RequestHandler = async (req, res) => {
-    await sysConfigRepository.deleteSysConfig(req.params.name)
+export const remove: RequestHandler = async (req, res) => {
+    await objectRepository.remove(req.params.name)
         .then(data=>{
             res.status(data.status.valueOf()).json(data.message);        
         })
@@ -53,8 +53,8 @@ export const deleteSysConfigByName: RequestHandler = async (req, res) => {
     );
 };
 
-export const updateSysConfig: RequestHandler = async (req, res) => {
-    await sysConfigRepository.updateSysConfig(req.params.name, req.body)
+export const update: RequestHandler = async (req, res) => {
+    await objectRepository.update(req.params.name, req.body)
         .then(data=>{
             res.status(data.status.valueOf()).json(data.message);        
         })
